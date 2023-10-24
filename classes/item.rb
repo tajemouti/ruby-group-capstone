@@ -1,14 +1,13 @@
-require 'date'  # Require the Date class
+require 'date' # Require the Date class
 
 class Item
-  attr_accessor :id, :genre, :author, :source, :label, :publish_date
+  attr_accessor :id, :genre, :author, :label, :publish_date
   attr_reader :archived
 
-  def initialize(id, genre, author, source, label, publish_date, archived)
-    @id = id
+  def initialize(genre, author, label, publish_date, archived)
+    @id = Random.rand(1..1000)
     @genre = genre
     @author = author
-    @source = source
     @label = label
     @publish_date = publish_date
     @archived = archived
@@ -17,18 +16,14 @@ class Item
   def can_be_archived?
     return false if @publish_date.nil?
 
-    if (Date.today - @publish_date.to_date).to_i > 3650
-      return true
-    end
-    return false
+    return true if (Date.today - @publish_date.to_date).to_i > 3650
+
+    false
   end
 
   def move_to_archive
-    if can_be_archived?
-      @archived = true
-    end
-  end
-  def label=(label)
-    @label = label
+    return unless can_be_archived?
+
+    @archived = true
   end
 end
