@@ -13,4 +13,13 @@ class Item
     @publish_date = publish_date
     @archived = archived
   end
+
+  def can_be_archived?
+    return false if @publish_date.nil?
+
+    if (Date.today - @publish_date.to_date).to_i > 3650
+      return true
+    end
+    return false
+  end
 end
