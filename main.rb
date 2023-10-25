@@ -1,6 +1,4 @@
-
-
-#main.rb
+# main.rb
 require 'date'
 require './classes/item'
 require './classes/genre'
@@ -35,12 +33,6 @@ def add_music_album(items)
   genre = Genre.new(items.size + 1, genre_name)
   new_album = MusicAlbum.new(items.size + 1, title, Time.now, on_spotify, genre)
   add_item(new_album, items)
-end
-
-def list_books(items)
-  puts 'List of all books:'
-  books = list_items(Book, items)
-  books.each { |book| puts "Book ID: #{book.id}, Title: #{book.title}" }
 end
 
 def list_labels(items)
@@ -82,7 +74,32 @@ def add_label_for_item(items)
   label
 end
 
+def list_books(items)
+  puts 'List of all books:'
+  books = list_items(Book, items)
+  books.each { |book| puts "Book ID: #{book.id}, Title: #{book.title}" }
+end
 
+def list_music_albums(items)
+  puts 'List of all music albums:'
+  music_albums = list_items(MusicAlbum, items)
+  music_albums.each { |music_album| puts "Album ID: #{music_album.id}, Title: #{music_album.title}" }
+end
+
+def list_games
+  puts 'List of games:'
+  # Add code to list games here
+end
+
+def list_authors
+  puts 'List of authors:'
+  # Add code to list authors here
+end
+
+def add_game
+  puts 'Add a game:'
+  # Add code to add a game here
+end
 
 puts 'Welcome to the Cataloge of my things'
 
@@ -100,40 +117,33 @@ def print_options
   puts '10. Quit'
 end
 
-def process_choice(choice, items)
+loop do
+  print_options
+  print 'Enter your choice: '
+  choice = gets.chomp.to_i
   case choice
   when 1
-    puts 'List of Books:'
-    list_items(Book, items).each { |book| puts "Book ID: #{book.id}, Title: #{book.title}" }
+    list_books(items)
   when 2
-    puts 'List of all music albums:'
-    list_items(MusicAlbum, items).each { |music_album| puts "Album ID: #{music_album.id}, Title: #{music_album.title}" }
+    list_music_albums(items)
   when 3
-    puts 'List of games:'
+    list_games
   when 4
     list_genres(items)
   when 5
-    puts 'List of Labels:'
     list_labels(items)
   when 6
-    puts 'List of authors:'
+    list_authors
   when 7
     add_book(items)
   when 8
     add_music_album(items)
   when 9
-    puts 'Add a game:'
+    add_game
   when 10
     puts 'Goodbye!'
-    exit
+    break
   else
     puts 'Invalid choice. Please try again.'
   end
-end
-
-loop do
-  print_options
-  print 'Enter your choice: '
-  choice = gets.chomp.to_i
-  process_choice(choice, items)
 end
