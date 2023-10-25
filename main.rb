@@ -40,7 +40,7 @@ items = load_items_from_json
 
 def list_genres(items)
   puts 'List of all genres:'
-  genres = items.select { |item| item.is_a?(MusicAlbum) }.map(&:genre)
+  genres = list_items(Genre, items)
   genres.each { |genre| puts "Genre ID: #{genre.id}, Name: #{genre.name}" }
 end
 
