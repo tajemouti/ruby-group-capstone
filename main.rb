@@ -5,6 +5,8 @@ require './classes/genre'
 require './classes/music_album'
 require './classes/book'
 require './classes/label'
+require './classes/author'
+require './classes/game'
 
 items = []
 
@@ -86,19 +88,45 @@ def list_music_albums(items)
   music_albums.each { |music_album| puts "Album ID: #{music_album.id}, Title: #{music_album.title}" }
 end
 
-def list_games
-  puts 'List of games:'
-  # Add code to list games here
+def list_authors(items)
+  puts 'List of all authors:'
+  authors = items.select { |item| item.is_a?(Game) }.map(&:author)
+  puts 'Author list is empty, please add a game first.' if authors.empty?
+  authors.each do |author|
+    puts "Author ID: #{author.id}, First Name: #{author.first_name}, Last Name: #{author.last_name}"
+  end
 end
 
-def list_authors
-  puts 'List of authors:'
-  # Add code to list authors here
+def list_games(items)
+  puts 'List of all games:'
+  games = list_items(Game, items)
+  puts 'List of games is empty, please add a new game.' if games.empty?
+  games.each_with_index { |game, index| puts "Game ID: #{index + 1}, Title: #{game.title}" }
 end
 
-def add_game
-  puts 'Add a game:'
-  # Add code to add a game here
+def add_game(items)
+  puts 'Enter Game Title:'
+  title = gets.chomp
+
+  puts 'Is it Multiplayer? (true/false):'
+  multiplayer = gets.chomp == 'true'
+
+  puts 'Enter the Publish Date (YYYY-MM-DD):'
+  publish_date = Date.parse(gets.chomp)
+
+  puts 'Enter the Last Played Date (YYYY-MM-DD):'
+  last_played_at = Date.parse(gets.chomp)
+
+  puts 'Enter the Author First Name:'
+  first_name = gets.chomp
+
+  puts 'Enter the Author Last Name:'
+  last_name = gets.chomp
+
+  author = Author.new(items.size + 1, first_name, last_name)
+  new_game = Game.new(title, publish_date, multiplayer, last_played_at, author)
+
+  add_item(new_game, items)
 end
 
 puts 'Welcome to the Cataloge of my things'
@@ -127,19 +155,19 @@ loop do
   when 2
     list_music_albums(items)
   when 3
-    list_games
+    list_games(items)
   when 4
     list_genres(items)
   when 5
     list_labels(items)
   when 6
-    list_authors
+    list_authors(items)
   when 7
     add_book(items)
   when 8
     add_music_album(items)
   when 9
-    add_game
+    add_game(items)
   when 10
     puts 'Goodbye!'
     break
