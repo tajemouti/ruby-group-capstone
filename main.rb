@@ -100,11 +100,7 @@ def print_options
   puts '10. Quit'
 end
 
-loop do
-  print_options
-  print 'Enter your choice: '
-  choice = gets.chomp.to_i
-
+def process_choice(choice, items)
   case choice
   when 1
     puts 'List of Books:'
@@ -129,8 +125,15 @@ loop do
     puts 'Add a game:'
   when 10
     puts 'Goodbye!'
-    break
+    exit
   else
     puts 'Invalid choice. Please try again.'
   end
+end
+
+loop do
+  print_options
+  print 'Enter your choice: '
+  choice = gets.chomp.to_i
+  process_choice(choice, items)
 end
