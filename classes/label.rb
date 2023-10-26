@@ -14,4 +14,16 @@ class Label
   def add_item(item)
     @items << item
   end
+  def to_json
+    {
+      'class_name' => 'Label',
+      'id' => id,
+      'title' => title,
+      'color' => color
+    }
+  end
+
+  def self.from_json(data)
+    Label.new(data['id'], data['title'], data['color'])
+  end
 end
