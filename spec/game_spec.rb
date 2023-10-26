@@ -33,4 +33,16 @@ describe Game do
     end
   end
 
+  describe "when the game cannot be archived" do
+    it "returns false when the game was last played less than 2 years ago" do
+      @game.last_played_at = Date.today
+      expect(@game.can_be_archived?).to be false
+    end
+
+    it "returns false when the game cannot be archived due to super conditions" do
+      @game.publish_date = Date.today
+      allow(@game).to receive(:super).and_return(false)
+      expect(@game.can_be_archived?).to be false
+    end
+  end
 end
