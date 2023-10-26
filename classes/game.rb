@@ -21,7 +21,7 @@ class Game < Item
       'multiplayer' => multiplayer,
       'last_played_at' => last_played_at,
       'author' => author.to_json
-  }
+    }
   end
 
   def self.from_json(data)
@@ -29,5 +29,4 @@ class Game < Item
     author = Author.from_json(author_data)
     Game.new(data['title'], Date.parse(data['publish_date']), data['multiplayer'], data['last_played_at'], author)
   end
-
 end

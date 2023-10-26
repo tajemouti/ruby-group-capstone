@@ -25,5 +25,4 @@ class Author
   def self.from_json(data)
     Author.new(data['id'], data['first_name'], data['last_name'])
   end
-
 end
