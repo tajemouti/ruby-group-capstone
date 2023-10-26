@@ -12,7 +12,7 @@ class Book < Item
     super || @cover_state == 'bad'
   end
 
-  def to_json
+  def to_json(*_args)
     {
       'class_name' => 'Book',
       'id' => id,
@@ -26,5 +26,4 @@ class Book < Item
   def self.from_json(data)
     Book.new(data['id'], data['title'], Date.parse(data['publish_date']), data['publisher'], data['cover_state'])
   end
-
 end
