@@ -28,9 +28,7 @@ def load_items_from_json
         Book.from_json(item_data)
       when 'Label'
         Label.from_json(item_data)
-      # Add other class cases if needed
-      else
-        nil
+        # Add other class cases if needed
       end
     end.compact
   else
