@@ -1,4 +1,5 @@
 # main.rb
+require 'json'
 require 'date'
 require './classes/item'
 require './classes/genre'
@@ -9,6 +10,35 @@ require './classes/author'
 require './classes/game'
 
 items = []
+def save_items_to_json(items)
+  File.open('items.json', 'w') do |file|
+    serialized_items = items.map(&:to_json)
+    file.puts serialized_items.to_json
+  end
+end
+
+def load_items_from_json
+  if File.exist?('items.json')
+    json_data = JSON.parse(File.read('items.json'))
+    json_data.map do |item_data|
+      # Determine the class name and call the appropriate from_json method.
+      class_name = item_data['class_name']
+      case class_name
+      when 'Book'
+        Book.from_json(item_data)
+      when 'Label'
+        Label.from_json(item_data)
+      # Add other class cases if needed
+      else
+        nil
+      end
+    end.compact
+  else
+    []
+  end
+end
+
+items = load_items_from_json
 
 def list_genres(items)
   puts 'List of all genres:'
@@ -169,6 +199,8 @@ loop do
   when 9
     add_game(items)
   when 10
+    save_items_to_json(items)
+    puts 'Items saved to JSON file.'
     puts 'Goodbye!'
     break
   else
