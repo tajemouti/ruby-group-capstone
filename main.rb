@@ -31,7 +31,10 @@ def load_items_from_json
         MusicAlbum.from_json(item_data)
       when 'Genre'
         Genre.from_json(item_data)
-        # Add other class cases if needed
+      when 'Game'
+        Game.from_json(item_data)
+      when 'Author'
+        Author.from_json(item_data)
       end
     end.compact
   else
