@@ -21,5 +21,16 @@ describe Game do
       expect(@game.last_played_at).to eq(last_played_at)
     end
   end
+  describe "when the game can be archived" do
+    it "returns true when the game was last played more than 2 years ago" do
+      @game.last_played_at = Date.new(2020, 1, 1)
+      expect(@game.can_be_archived?).to be true
+    end
+
+    it "returns true when the game be archived due to super conditions" do
+      allow(@game).to receive(:super).and_return(true)
+      expect(@game.can_be_archived?).to be true
+    end
+  end
 
 end
