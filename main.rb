@@ -1,4 +1,3 @@
-# main.rb
 require 'json'
 require 'date'
 require './classes/item'
@@ -28,6 +27,10 @@ def load_items_from_json
         Book.from_json(item_data)
       when 'Label'
         Label.from_json(item_data)
+      when 'MusicAlbum'
+        MusicAlbum.from_json(item_data)
+      when 'Genre'
+        Genre.from_json(item_data)
         # Add other class cases if needed
       end
     end.compact
@@ -40,7 +43,7 @@ items = load_items_from_json
 
 def list_genres(items)
   puts 'List of all genres:'
-  genres = items.select { |item| item.is_a?(MusicAlbum) }.map(&:genre)
+  genres = list_items(Genre, items)
   genres.each { |genre| puts "Genre ID: #{genre.id}, Name: #{genre.name}" }
 end
 
@@ -56,12 +59,20 @@ end
 def add_music_album(items)
   puts 'Enter Album Title:'
   title = gets.chomp
+
   puts 'Is it on Spotify? (true/false):'
   on_spotify = gets.chomp == 'true'
+
+  puts 'Enter Publish Date (YYYY-MM-DD):'
+  publish_date = DateTime.parse(gets.chomp)
+
   puts 'Enter Genre Name:'
   genre_name = gets.chomp
+
   genre = Genre.new(items.size + 1, genre_name)
-  new_album = MusicAlbum.new(items.size + 1, title, Time.now, on_spotify, genre)
+  add_item(genre, items)
+
+  new_album = MusicAlbum.new(items.size + 1, title, publish_date.to_time, on_spotify)
   add_item(new_album, items)
 end
 

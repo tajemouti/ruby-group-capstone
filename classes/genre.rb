@@ -11,4 +11,16 @@ class Genre
   def add_item(item)
     @items << item
   end
+
+  def to_json(*_args)
+    {
+      'class_name' => 'Genre',
+      'id' => id,
+      'name' => name
+    }
+  end
+
+  def self.from_json(data)
+    Genre.new(data['id'], data['name'])
+  end
 end
