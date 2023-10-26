@@ -22,4 +22,12 @@ describe Author do
     end
   end
 
+  describe 'The add_item method should work properly' do
+    it "Add the item to author's items collection" do
+      author.add_item(@item1)
+      expect(author.items).to contain_exactly(@item1)
+    end
+  end
+
+
 end
