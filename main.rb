@@ -17,6 +17,8 @@ def save_items_to_json(items)
 end
 
 def load_items_from_json
+  items = []
+  return items if File.empty?('items.json')
   if File.exist?('items.json')
     json_data = JSON.parse(File.read('items.json'))
     json_data.map do |item_data|
