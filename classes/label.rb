@@ -14,7 +14,8 @@ class Label
   def add_item(item)
     @items << item
   end
-  def to_json
+
+  def to_json(*_args)
     {
       'class_name' => 'Label',
       'id' => id,
