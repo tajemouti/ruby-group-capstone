@@ -1,4 +1,3 @@
-# main.rb
 require 'json'
 require 'date'
 require './classes/item'
@@ -28,6 +27,10 @@ def load_items_from_json
         Book.from_json(item_data)
       when 'Label'
         Label.from_json(item_data)
+      when 'MusicAlbum'
+        MusicAlbum.from_json(item_data)
+      when 'Genre'
+        Genre.from_json(item_data)
         # Add other class cases if needed
       end
     end.compact
