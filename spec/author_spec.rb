@@ -8,7 +8,7 @@ describe Author do
   end
 
   before(:each) do
-    @item1 = Item.new(11, 'Title', Date.new(2020,01,01))
+    @item1 = Item.new(11, 'Title', Date.new(2020, 0o1, 0o1))
   end
   describe 'When testing the Author class' do
     it 'Sets the first_name attribute' do
@@ -28,6 +28,4 @@ describe Author do
       expect(author.items).to contain_exactly(@item1)
     end
   end
-
-
 end
