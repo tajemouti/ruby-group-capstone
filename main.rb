@@ -31,8 +31,6 @@ def load_items_from_json
     'Game' => Game,
     'Author' => Author
   }
-
-
   json_data = JSON.parse(File.read('items.json'))
   json_data.map do |item_data|
     class_name = item_data['class_name']
