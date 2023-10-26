@@ -28,4 +28,31 @@ describe Author do
       expect(author.items).to contain_exactly(@item1)
     end
   end
+
+  describe '#to_json & #from_json' do
+    it 'returns a JSON representation of the author' do
+      author = Author.new(1, 'John', 'Doe')
+      expected_json = {
+        'class_name' => 'Author',
+        'id' => 1,
+        'first_name' => 'John',
+        'last_name' => 'Doe'
+      }
+      expect(author.to_json).to eq(expected_json)
+    end
+
+    it 'creates an Author object from JSON data' do
+      data = {
+        'class_name' => 'Author',
+        'id' => 2,
+        'first_name' => 'Jane',
+        'last_name' => 'Smith'
+      }
+      author = Author.from_json(data)
+      expect(author).to be_an_instance_of(Author)
+      expect(author.id).to eq(2)
+      expect(author.first_name).to eq('Jane')
+      expect(author.last_name).to eq('Smith')
+    end
+  end
 end
