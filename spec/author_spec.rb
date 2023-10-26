@@ -17,7 +17,9 @@ describe Author do
     it 'Sets the last_name attribute' do
       expect(author.last_name).to eq('Ahmadi')
     end
-
+    it 'Initialize an empty items arrary' do
+      expect(author.items).to be_empty
+    end
   end
 
 end
