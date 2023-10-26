@@ -37,22 +37,22 @@ describe Label do
   describe '#to_json' do
     it 'returns a json representation of the label' do
       expect(subject.to_json).to eq({
-        'class_name' => 'Label',
-        'id' => 1,
-        'title' => 'General',
-        'color' => 'red'
-      })
+                                      'class_name' => 'Label',
+                                      'id' => 1,
+                                      'title' => 'General',
+                                      'color' => 'red'
+                                    })
     end
   end
 
   describe '.from_json' do
     it 'returns a label object from the json data' do
       label = Label.from_json({
-        'class_name' => 'Label',
-        'id' => 1,
-        'title' => 'General',
-        'color' => 'red'
-      })
+                                'class_name' => 'Label',
+                                'id' => 1,
+                                'title' => 'General',
+                                'color' => 'red'
+                              })
       expect(label).to be_a Label
       expect(label.id).to eq 1
       expect(label.title).to eq 'General'
