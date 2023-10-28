@@ -10,6 +10,7 @@ require './classes/game'
 require './managers/book_manager'
 require './managers/music_manager'
 require './managers/game_manager'
+require './managers/item_manager'
 
 def save_items_to_json(items)
   serialized_items = items.map(&:to_json)
@@ -41,15 +42,6 @@ def load_items_from_json
 end
 
 items = load_items_from_json
-
-def list_items(class_name, items)
-  items.select { |item| item.is_a?(class_name) }
-end
-
-def add_item(item, items)
-  items << item
-  puts "#{item.class.name} added successfully."
-end
 
 puts 'Welcome to the Cataloge of my things'
 
